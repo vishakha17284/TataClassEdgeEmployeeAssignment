@@ -1,0 +1,62 @@
+<div>
+  <table class="table table-dark">
+    <thead>
+      <tr>
+        <th scope="col">First name</th>
+        <th scope="col">Last name</th>
+        <th scope="col">Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let employee of employees$ | async">
+        <td>{{ employee.full_name }}</td>
+        <td>{{  employee.last_name }}</td>
+        <td>{{  employee.email }}</td>
+        <td><img  src="{{employee.avatar}}" width="50" height="60"></td>
+        <td>
+          <button (click)="showUpdateForm(employee)" class="btn btn-primary" style="margin: 5px">Update</button>
+          <button (click)="deleteEmployee(employee.id)" class="btn btn-danger" style="margin: 5px">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="isUpdateActivated" style="margin-top: 50px; margin-left: 50px;">
+    <h4>Update Employee</h4>
+    <form (ngSubmit)="updateEmployee(updateForm)" #updateForm="ngForm">
+      <div class="form-group">
+        <label for="name">Employee First Name</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          class="form-control"
+          required
+          [(ngModel)]="employeeToBeUpdated.first_name"
+          style="width: 400px"/>
+      </div>
+      <div class="form-group">
+        <label for="name">Employee Last Name</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          class="form-control"
+          required
+          [(ngModel)]="employeeToBeUpdated.last_name"
+          style="width: 400px"/>
+      </div><div class="form-group">
+        <label for="name">Email</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          class="form-control"
+          required
+          [(ngModel)]="employeeToBeUpdated.email"
+          style="width: 400px"/>
+      </div>
+      <button [disabled]="updateForm.invalid" class="btn btn-primary" type="submit">Update</button>
+    </form>
+  </div>
+</div>
